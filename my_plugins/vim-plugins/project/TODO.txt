@@ -1,0 +1,165 @@
+Interesting:
+- Documentation of Windows idiosyncrasies:
+    :help win32
+- Dictionary API: http://dictionaryapi.net/
+- Use plug-in internal mappings with <Plug> to get <expr> to work for menus:
+    exe 'vmenu '.entry.' <C-C><Plug>GitsupportMenu1'
+    nmap <expr> <Plug>GitsupportMenu1 <SID>AssembleCmdLine( ':GitLog -p -S "'.@*, '"' )
+
+Project:
+- Use normal!, noremap and noremenu consistently.
+- Is the difference between local and global/system installation documented
+  somewhere?
+- (DONE?) Improve 'adjust end-of-line comment' to change the line if the comment
+  itself contains ignored sections?
+- Do not always jump to errors automatically from the quickfix list. Make this
+  configurable.
+- Configure the template which is inserted automatically when a new file is
+  created.
+- Use 'Xterm_Executable' and 'Xterm_Options' everywhere.
+- Do not use 'lchdir' for starting external jobs in a directory. This may have
+  undesired side effects. Use 'ch' instead, and use haslocaldir() when
+  available.
+- Check how to start jobs with arguments under Windows.
+  Important for job_start() and term_start().
+- Add plug-in set-up guide.
+- Remove mailing list links from plug-in pages and GitHub README.
+
+vim.org:
+- (DONE) Reference GitHub on plug-in pages.
+- All links should use 'https://www.vim.org'
+
+Templates:
+- (DONE) API 'EditTemplateFiles'.
+  * Check whether an indexed file actually exists.
+  * Configuration of the file browser (+ documentation).
+- (DONE) After reloading a template library, it is possible that the maps are
+  not created anymore.
+- (DONE) Correct escape for menu names.
+  * At least these special characters must be escaped: <space> . | \ &
+  * Expanded menus for lists.
+- (DONE) When overwriting templates, also set new map and shortcut, if one is
+  given.
+- (DONE) Add configuration "g:Templates_OverwriteWarning".
+- (DONE) Can not use property "Templates::UsePersonalizationFile" anymore:
+  Personalization files loaded before customization.
+  -> Custom templates loaded afterwards, so less need for skipping
+  personalization file.
+- (DONE) Change 3rd argument of 'mmtemplates#core#AddCustomTemplateFiles'?
+- Better debugging while reading template files:
+  Print filename and line number for errors and warnings.
+- Configure CTRL+J and CTRL+D.
+- Add an appropriate action if 'mmtemplates#core#EditTemplateFiles' is called
+  for a file which is not yet available.
+
+Awk:
+- (DONE) 'code->comment' should not insert a space following the hash?
+- Add example filetype plug-in.
+- Still need Awk wrapper script?
+
+Bash:
+- (DONE) 'code->comment' should not insert a space following the hash?
+- (DONE) Template library, list 'IORedirection': check "duplicate STDIN from file descr n" and "duplicate STDOUT to file descr n"
+- (DONE) Template library, list 'TestsFileTypes': "symbolic link -h".
+- (DONE) Template library, list 'TestsFileCharacteristics': "file exists -a". Is apparently deprecated.
+- (DONE) Compl.-func. 'BASH_BuiltinComplete' missing.
+  -> Solved via 's:UserInput' and built-in list from template library.
+- (DONE) Move 'ftplugin/sh.vim'.
+- Still need Bash wrapper script?
+
+C/C++:
+- (FM, DONE) Documentation: Change documentation with regard to Make integration.
+  * 'Run' menu entries removed.
+  * Maps configured in ftplugin.
+  * Reference documentation of toolbox.
+  * Reference toolbox in 'c-hotkeys.tex'?
+  * Document 'g:C_UseToolbox' and 'g:C_UseTool_*'.
+  * Menu entry 'Run->executable to run' is not part of the Make integration
+    anymore, since the Make integration moves to the toolbox. It is to be
+    documented as configuration for 'Run->run', similar to 'Run->cmdline arg.'.
+    Shortcut changes to '\re'.
+- (DONE) Doxygen:
+  * Templates for "overload".
+  * Append "short, after member" to several lines.
+  * Add escaped characters "\" and "|" once the template engine supports this.
+- (DONE) Documentation: Change the description of the Doxygen setup.
+- README: Change the description of the Doxygen setup.
+- (DONE) Documentation: Adding additional template files.
+- Configure the template which is inserted automatically when a new file is
+  created.
+- (DONE) Add a template to insert all section comments into a file at once.
+- (DONE) Move 'ftplugin/c.vim'.
+- (DONE) Move 'ftplugin/make.vim'.
+
+Git:
+- Add more suggestions for custom menu entries to 's:Git_CustomMenu'.
+- Add current custom menu entries to documentation and/or "git-support/rc/",
+  as a starting point for customization.
+- Current method for jumping to Git buffers does not work for tabs.
+  * (DONE) Open the buffer in a new window.
+  * Optionally: Jump across tab pages.
+- How about jumping to windows?
+  * (DONE) Open the buffer in a new window.
+  * Optionally: Jump across tab pages.
+- (DONE) Problem with 's:OpenFile()':
+  Since the name of the buffer has to match exactly, this does not always work
+  with different working directories.
+- (DONE) Maps for completing Git commands, branches, tags, remotes, ...
+  similar to the cmd-line completion plug-in.
+- (DONE) New status buffer output (version > 1.8.5):
+  Update syntax highlighting, folding function, file actions
+- Do not use "sync fromstart" in syntax highlighting,
+  is extremely slow for diff and log.
+- Rename function 'GitS_FoldLog' into 'GitS_FoldLogTxt'.
+- Set 'foldmethod' individually and not in 's:OpenGitBuffer'.
+- Document map "ow" in status buffer, mention in the README.
+- Update buffer after executing a command: :GitBranch, :GitRemote, :GitStash, ...
+- Feed output of "git apply" into quickfix.
+- Remove :GitAbove, :GitBelow, and :GitTab again and ...
+- Use modifiers to split the window or open on a new tab.
+- Document 'g:Git_Editor', and the use of '$GIT_EDITOR', and add it to :GitSupportSettings.
+- Add 'git log -L line,line:file' in visual mode.
+
+LaTeX:
+- (DONE) Add :LatexConvert as an ex-command.
+- Enable processing method "background" under Windows. (:TODO:25.09.2017 17:17:WM:)
+
+Lua:
+- Enable output method "terminal" under Windows. (:TODO:25.09.2017 16:16:WM:)
+- Change behavior of terminal output. Opens a new window every time.
+- (DONE) Add maps 'qf' and 'qj' for terminal output.
+- Complete documentation with regards to terminals.
+
+Matlab:
+- The old setup of the help via "SetMacro( 'HELP_BROWSER', ... )" is still
+  mentioned in the documentations.
+- Remove old ".../rc/sample_template_file".
+- Remove old release script 'release.lua'.
+- Move 'ftplugin/matlab.vim'.
+
+Perl:
+- (DONE?) 'perldoc' does not print the correct error message if it is not installed.
+- Documentation: Maps Ctrl+j and Crtl+d.
+- Documentation: Check that maps are introduced properly.
+- (DONE) Documentation: Adding additional template files.
+- (DONE) Remove old release script.
+- (DONE) Move 'ftplugin/make.vim'.
+- (DONE) Move 'ftplugin/perl.vim'.
+- (DONE) Move 'ftplugin/pod.vim'.
+- (DONE) Move 'ftplugin/qf.vim'.
+
+Vim:
+- (DONE) Documentation: Adding additional template files.
+
+Toolbox:
+- (DONE) CMake: Does the help work at all under Windows? -> Yes.
+- (DONE) CMake: Names of help buffers, can we use brackets, other characters (Windows)?
+- (DONE) CMake: Run ccmake (in xterm), cmake-gui (UNIX and Windows)
+- (DONE) Doxygen: Run doxywizard (UNIX)
+- (DONE) Doxygen: Find doxywizard executable for Windows
+- Make: Use option 'Make_Executable'.
+
+Snippets:
+- (FM, DONE?) Set first parameter ("save") in "browse()" to '1' for writing snippets
+
+" vim: expandtab:tw=80

@@ -1,0 +1,59 @@
+§ =============================================================
+§  Shell Options
+§ =============================================================
+
+== LIST: shopt == list ==
+'autocd',
+'cdable_vars',
+'cdspell',
+'checkhash',
+'checkjobs',
+'checkwinsize',
+'cmdhist',
+'compat31',
+'compat32',
+'compat40',
+'compat41',
+'compat42',
+'compat43',
+'complete_fullquote',
+'direxpand',
+'dirspell',
+'dotglob',
+'execfail',
+'expand_aliases',
+'extdebug',
+'extglob',
+'extquote',
+'failglob',
+'force_fignore',
+'globalasciiranges',
+'globstar',
+'gnu_errfmt',
+'histappend',
+'histreedit',
+'histverify',
+'hostcomplete',
+'huponexit',
+'inherit_errexit',
+'interactive_comments',
+'lastpipe',
+'lithist',
+'login_shell',
+'mailwarn',
+'no_empty_cmd_completion',
+'nocaseglob',
+'nocasematch',
+'nullglob',
+'progcomp',
+'promptvars',
+'restricted_shell',
+'shift_verbose',
+'sourcepath',
+'xpg_echo',
+== ENDLIST ==
+
+== Shopts == expandmenu, insert, map:bso, sc:o ==
+|PickList( 'Shopts', 'shopt' )|
+shopt -s |PICK|<CURSOR>
+== ENDTEMPLATE ==
