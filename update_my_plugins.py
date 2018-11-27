@@ -16,7 +16,7 @@ from os import path
 
 #--- Globals ----------------------------------------------
 PLUGINS = """
-vimwiki https://github.com/vimwiki/vimwiki 
+vimwiki https://github.com/vimwiki/vimwiki
 vim-textobj-user https://github.com/kana/vim-textobj-user
 vim-textobj-uri https://github.com/jceb/vim-textobj-uri
 vim-textobj-line https://github.com/kana/vim-textobj-line
@@ -28,6 +28,7 @@ vim-signature https://github.com/kshenoy/vim-signature
 vim-copy-filename https://github.com/AdamWhittingham/vim-copy-filename
 vim-asterisk https://github.com/haya14busa/vim-asterisk
 limelight.vim https://github.com/junegunn/limelight.vim
+vim-easymotion https://github.com/easymotion/vim-easymotion
 incsearch-fuzzy.vim https://github.com/haya14busa/incsearch-fuzzy.vim
 incsearch-easymotion.vim https://github.com/haya14busa/incsearch-easymotion.vim
 incsearch.vim https://github.com/haya14busa/incsearch.vim
@@ -39,7 +40,6 @@ supertab https://github.com/ervandew/supertab
 vimfiler.vim https://github.com/Shougo/vimfiler.vim
 unite.vim https://github.com/Shougo/unite.vim
 unite-outline https://github.com/h1mesuke/unite-outline
-unite-everything https://github.com/sgur/unite-everything
 txt.vim https://github.com/vim-scripts/txt.vim
 vim-fat-finger https://github.com/chip/vim-fat-finger
 vim-cursorword https://github.com/itchyny/vim-cursorword
@@ -52,6 +52,9 @@ vim-plugins https://github.com/WolfgangMehner/vim-plugins
 tagbar https://github.com/majutsushi/tagbar
 vim-easytags https://github.com/xolox/vim-easytags
 vim-misc https://github.com/xolox/vim-misc
+vim-sensible https://github.com/tpope/vim-sensible
+nerdcommenter https://github.com/scrooloose/nerdcommenter
+ag.vim https://github.com/vim-scripts/ag.vim
 """.strip()
 
 

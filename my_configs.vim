@@ -40,7 +40,7 @@ let g:startify_list_order = [
         \ 'commands',
         \ ]
 
-let g:startify_bookmarks = [ {'c': '~/.vimrc'}, {'m': '~/.vim_runtime/update_my_plugins.py'}, {'r': '~/.vim_runtime/README.md'}, {'v': 'C:/Users/yzl/AppData/Roaming/.emacs.d/GTD/Java/codeReview/review.wiki'}, 'https://github.com/kana/vim-textobj-user/wiki', {'g': 'C:/Users/yzl/AppData/Roaming/.emacs.d/GTD/Java/notes/gunsNotes.wiki'}, {'o': 'C:/Users/yzl/AppData/Roaming/.emacs.d/GTD/Java/notes/roses.wiki'}, {'w': 'C:/Users/yzl/AppData/Roaming/.emacs.d/GTD/writing/dynamic.wiki'},{'s': 'C:/Users/yzl/AppData/Roaming/.emacs.d/GTD/writing/常用搜索链接.wiki'},{'a': 'C:/Users/yzl/AppData/Roaming/.emacs.d/GTD/Java/architect-awesome/README.md.wiki'}, {'t': 'K:/IntellijHome/t-io/README.md '}, {'j': 'K:/IntellijHome/j-im/README.md '}, {'g': 'https://github.com/CyC2018/CS-Notes'}]
+let g:startify_bookmarks = [ {'c': '~/.vim_runtime/my_configs.vim'}, {'m': '~/.vim_runtime/update_my_plugins.py'}, {'r': '~/.vim_runtime/README.md'}, {'v': 'C:/Users/yzl/AppData/Roaming/.emacs.d/GTD/Java/codeReview/review.wiki'}, 'https://github.com/kana/vim-textobj-user/wiki', {'g': 'C:/Users/yzl/AppData/Roaming/.emacs.d/GTD/Java/notes/gunsNotes.wiki'}, {'o': 'C:/Users/yzl/AppData/Roaming/.emacs.d/GTD/Java/notes/roses.wiki'}, {'w': 'C:/Users/yzl/AppData/Roaming/.emacs.d/GTD/writing/dynamic.wiki'},{'s': 'C:/Users/yzl/AppData/Roaming/.emacs.d/GTD/writing/常用搜索链接.wiki'},{'a': 'C:/Users/yzl/AppData/Roaming/.emacs.d/GTD/Java/architect-awesome/README.md.wiki'}, {'t': 'K:/IntellijHome/t-io/README.md '}, {'j': 'K:/IntellijHome/j-im/README.md '}, {'g': 'https://github.com/CyC2018/CS-Notes'}]
 let g:startify_commands = [
     \ ':help reference',
     \ ['Vim Reference', 'h ref'],
@@ -125,6 +125,14 @@ map z#  <Plug>(asterisk-z#)
 map gz# <Plug>(asterisk-gz#)
 let g:asterisk#keeppos = 1
 
+" easy-motion
+let g:EasyMotion_leader_key = '<Leader>'
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
 
 "incsearch with easymotion
   " You can use other keymappings like <C-l> instead of <CR> if you want to
@@ -270,33 +278,40 @@ let w:full_screen=1
 endif
 endfunc
 
+set columns=140
+set lines=40
+map <D-1> 1gt
+map <D-2> 2gt
+map <D-3> 3gt 
+
+map <D-0> :tablast<CR>
+
 "autocmd GUIEnter * simalt ~x
-set lines=34
-if (exists('+colorcolumn'))
-    set colorcolumn=80
-    highlight ColorColumn ctermbg=9
-endif
+"set lines=34
+"if (exists('+colorcolumn'))
+    "set colorcolumn=80
+""    highlight ColorColumn ctermbg=9
+"endif
 
 " for macvim
-if has("gui_running")
-    set go=aAce  " remove toolbar
-    "set transparency=30
-    set showtabline=2
-    set columns=140
-    set lines=40
-    noremap <D-M-Left> :tabprevious<cr>
-    noremap <D-M-Right> :tabnext<cr>
-    map <D-1> 1gt
-    map <D-2> 2gt
-    map <D-3> 3gt 
-    map <D-4> 4gt
-    map <D-5> 5gt
-    map <D-6> 6gt
-    map <D-7> 7gt
-    map <D-8> 8gt
-    map <D-9> 9gt
-    map <D-0> :tablast<CR>
-endif
+"if has("gui_running")
+    "set go=aAce  " remove toolbar
+    "set showtabline=2
+    "set columns=140
+    "set lines=40
+    "noremap <D-M-Left> :tabprevious<cr>
+    "noremap <D-M-Right> :tabnext<cr>
+    "map <D-1> 1gt
+    "map <D-2> 2gt
+    "map <D-3> 3gt 
+    "map <D-4> 4gt
+    "map <D-5> 5gt
+    "map <D-6> 6gt
+    "map <D-7> 7gt
+    "map <D-8> 8gt
+    "map <D-9> 9gt
+    "map <D-0> :tablast<CR>
+"endif
 
 
 "" tab encapsulation
@@ -388,8 +403,6 @@ let g:move_key_modifier = 'C'
 "$" last column   a: input words
 nmap <F8> O<ESC>O<ESC>jO- Brief Summary(by yzl):<CR><ESC>0d$i{{{<CR><Tab><CR><ESC>v0xk$a1. so what?
 
-vmap <C-c> "+y    
-nmap <C-v> "+p    
 "nmap <C-a> gg0vG$
 "
 "MyInfoMation
@@ -447,8 +460,6 @@ let g:vimfiler_as_default_explorer = 1
 
 " Like Textmate icons.
 let g:vimfiler_tree_leaf_icon = ' '
-"let g:vimfiler_tree_closed_icon = '▸'
-"let g:vimfiler_tree_opened_icon = '▾'
 let g:vimfiler_file_icon = '-'
 let g:vimfiler_marked_file_icon = '*'
 
@@ -461,11 +472,11 @@ let g:unite_kind_file_use_trashbox = 1
 "nnoremap <Leader>f :Unite file buffer file_rec file_mru everything<CR>
 nnoremap <Leader>f :VimFiler<CR>
 nnoremap <leader>l :Unite line<CR>
-let g:unite_source_everything_limit = 100
-let g:unite_source_everything_full_path_search = 1
-let g:unite_source_everything_posix_regexp_search = 1
-let g:unite_source_everything_async_minimum_length = 3
-let g:unite_source_everything_cmd_path = $HOME.'\\.vim\\es\\es.exe'
+"let g:unite_source_everything_limit = 100
+"let g:unite_source_everything_full_path_search = 1
+"let g:unite_source_everything_posix_regexp_search = 1
+"let g:unite_source_everything_async_minimum_length = 3
+"let g:unite_source_everything_cmd_path = $HOME.'\\.vim\\es\\es.exe'
 
 
 """ for vim-easybar
@@ -475,3 +486,25 @@ let g:unite_source_everything_cmd_path = $HOME.'\\.vim\\es\\es.exe'
 ":let g:easytags_cmd = '/usr/local/bin/ctags'
 set tags=./tags
 let g:easytags_dynamic_files = 1
+
+" for comfortable-motion
+let g:comfortable_motion_no_default_key_mappings = 1
+let g:comfortable_motion_impulse_multiplier = 1  " Feel free to increase/decrease this value.
+nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
+nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
+nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
+noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(100)<CR>
+noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-100)<CR>
+let g:comfortable_motion_scroll_down_key = "j"
+let g:comfortable_motion_scroll_up_key = "k"
+
+nmap <F5> :TagbarToggle<cr>
+nmap <F6> :NERDTreeToggle<cr>
+
+"" for ag"
+nmap <leader>a :Ag <c-r>=expand("<cword>")<cr><cr>
+nnoremap <space>/ :Ag
+
+nmap <leader>cad :Calendar<Cr><Cr>
+

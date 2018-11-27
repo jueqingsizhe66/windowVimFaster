@@ -7,6 +7,14 @@
 3. 写了update_my_plugins.vim 更新自己的插件 ,使用`python3 update_my_plugins.vim`
 4. rainbow_paratheses的好处是让括号好看些
 5. 更快的ctrlp配置
+6. 原有的配置居然支持保存更新，很厉害
+7. 增加了nerdcomment方便注释`(,cc)`, 替换掉vim-commentary
+8. Comfortable-motion也是挺有用的`<C-f><C-d><C-u><C-b>`
+9. 增加我的`,a 搜索光标下档次 和<space>/打开Ag`
+10. `C:\Users\yzl`的.NERDTreeBookmarks nerdtree的`:Bookmark`对应的文件夹名名字,`_vim_mru_files`保存着最近访问的文件,`_vimtags`保存着所有tag相关的记录.
+11. `C-s`变成加入光标, `Alt-S`变成添加符合全部单词下的光标,`ESC`推出MC模式
+12. `gf` open file under cursor,如果是路径的话(配合上vimwiki).
+13. easymotion的<leader>j和k可以正常于运行
 # The Ultimate vimrc
 
 Over the last 10 years, I have used and tweaked Vim. This configuration is the ultimate vimrc (or at least my version of it).
@@ -96,16 +104,16 @@ I recommend reading the docs of these plugins to understand them better. Each pl
 
 * [ack.vim](https://github.com/mileszs/ack.vim): Vim plugin for `the_silver_searcher` (ag) or ack -- a wicked fast grep
 * [bufexplorer.zip](https://github.com/vim-scripts/bufexplorer.zip): Quickly and easily switch between buffers. This plugin can be opened with `<leader+o>`
-* [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim): Fuzzy file, buffer, mru and tag finder. It's mapped to `<Ctrl+F>`
+* [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim): Fuzzy file, buffer, mru and tag finder. It's mapped to `<Ctrl+F>`, 修正ctrl+F，和comfortable-motion重合
 * [goyo.vim](https://github.com/junegunn/goyo.vim) and [vim-zenroom2](https://github.com/amix/vim-zenroom2): 
 * [lightline.vim](https://github.com/itchyny/lightline.vim): A light and configurable statusline/tabline for Vim
 * [NERD Tree](https://github.com/scrooloose/nerdtree): A tree explorer plugin for vim
-* [mru.vim](https://github.com/vim-scripts/mru.vim): Plugin to manage Most Recently Used (MRU) files. This plugin can be opened with `<leader+f>`
+* [mru.vim](https://github.com/vim-scripts/mru.vim): Plugin to manage Most Recently Used (MRU) files. This plugin can be opened with `<leader+f>` 删掉他，ctrlp已经集成了MRU功能，多余
 * [open_file_under_cursor.vim](https://github.com/amix/open_file_under_cursor.vim): Open file under cursor when pressing `gf`
 * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your vim runtimepath 
 * [snipmate.vim](https://github.com/garbas/vim-snipmate): snipmate.vim aims to be a concise vim script that implements some of TextMate's snippets features in Vim
 * [ale](https://github.com/w0rp/ale): Syntax and lint checking for vim (async)
-* [vim-commentary](https://github.com/tpope/vim-commentary): Comment stuff out.  Use `gcc` to comment out a line (takes a count), `gc` to comment out the target of a motion. `gcu` uncomments a set of adjacent commented lines.
+* [vim-commentary](https://github.com/tpope/vim-commentary): Comment stuff out.  Use `gcc` to comment out a line (takes a count), `gc` to comment out the target of a motion. `gcu` uncomments a set of adjacent commented lines.(使用nerdcommenter替换他!!!!!)
 * [vim-expand-region](https://github.com/terryma/vim-expand-region): Allows you to visually select increasingly larger regions of text using the same key combination
 * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
 * [vim-indent-object](https://github.com/michaeljsmith/vim-indent-object): Defines a new text object representing lines of code at the same indent level. Useful for python/vim scripts

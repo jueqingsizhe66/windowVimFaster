@@ -45,7 +45,6 @@ vim-fugitive https://github.com/tpope/vim-fugitive
 goyo.vim https://github.com/junegunn/goyo.vim
 vim-zenroom2 https://github.com/amix/vim-zenroom2
 vim-repeat https://github.com/tpope/vim-repeat
-vim-commentary https://github.com/tpope/vim-commentary
 vim-go https://github.com/fatih/vim-go
 vim-gitgutter https://github.com/airblade/vim-gitgutter
 gruvbox https://github.com/morhetz/gruvbox
@@ -54,11 +53,12 @@ vim-pug https://github.com/digitaltoad/vim-pug
 lightline.vim https://github.com/itchyny/lightline.vim
 lightline-ale https://github.com/maximbaz/lightline-ale
 vim-abolish https://github.com/tpope/tpope-vim-abolish
-mru.vim https://github.com/vim-scripts/mru.vim
 vim-markdown https://github.com/plasticboy/vim-markdown
 comfortable-motion.vim https://github.com/yuttie/comfortable-motion.vim
 """.strip()
 
+#vim-commentary https://github.com/tpope/vim-commentary
+#mru.vim https://github.com/vim-scripts/mru.vim
 GITHUB_ZIP = '%s/archive/master.zip'
 
 SOURCE_DIR = path.join(path.dirname(__file__), 'sources_non_forked')
