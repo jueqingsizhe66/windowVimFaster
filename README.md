@@ -6,15 +6,19 @@
 2. 写了my_configs.vim  并下载了自己插件到my_plugins文件夹
 3. 写了update_my_plugins.vim 更新自己的插件 ,使用`python3 update_my_plugins.vim`
 4. rainbow_paratheses的好处是让括号好看些
-5. 更快的ctrlp配置
+5. 更快的ctrlp配置`F2`,`F1`和`,o`的bufferexplorer命令一样
 6. 原有的配置居然支持保存更新，很厉害
 7. 增加了nerdcomment方便注释`(,cc)`, 替换掉vim-commentary
 8. Comfortable-motion也是挺有用的`<C-f><C-d><C-u><C-b>`
-9. 增加我的`,a 搜索光标下档次 和<space>/打开Ag`
+9. 增加我的`,a 搜索光标下单词 和<space>/打开Ag`,`,cad`调用calendar,然后写wiki,`,wi`写日记也是可以的
 10. `C:\Users\yzl`的.NERDTreeBookmarks nerdtree的`:Bookmark`对应的文件夹名名字,`_vim_mru_files`保存着最近访问的文件,`_vimtags`保存着所有tag相关的记录.
-11. `C-s`变成加入光标, `Alt-S`变成添加符合全部单词下的光标,`ESC`推出MC模式
+11. `C-s`变成加入光标, `Alt-S`变成添加符合全部单词下的光标,`ESC`推出MC(multiple cursors)模式
 12. `gf` open file under cursor,如果是路径的话(配合上vimwiki).
 13. easymotion的<leader>j和k可以正常于运行
+14. `,g`调用`:ACK` 然后写上TODO就可以过滤项目中所有具有TODO字段的行了(习惯性地添加TODO,FIXME,BUG等) ![TODO高亮][https://www.jb51.net/article/115922.htm]
+15. `,fu`查看当前代码文件的所有函数  `,fU`跳转到指定函数中
+16. `F7` 添加TODO(yzl), `F8`添加so what 总结性声明.
+
 # The Ultimate vimrc
 
 Over the last 10 years, I have used and tweaked Vim. This configuration is the ultimate vimrc (or at least my version of it).

@@ -402,6 +402,7 @@ let g:move_key_modifier = 'C'
 "" v visual   0  start of line    x: delete  k: move cursor upper line  $:
 "$" last column   a: input words
 nmap <F8> O<ESC>O<ESC>jO- Brief Summary(by yzl):<CR><ESC>0d$i{{{<CR><Tab><CR><ESC>v0xk$a1. so what?
+nmap <F7> <ESC>oTODO(yzl)<ESC>
 
 "nmap <C-a> gg0vG$
 "
@@ -504,7 +505,22 @@ nmap <F6> :NERDTreeToggle<cr>
 
 "" for ag"
 nmap <leader>a :Ag <c-r>=expand("<cword>")<cr><cr>
-nnoremap <space>/ :Ag
+nnoremap <space>/ :Ag 
 
 nmap <leader>cad :Calendar<Cr><Cr>
 
+
+let $PYTHONHOME = 'c:\\Python37\\'
+let g:pymode_python = 'C:\\Python37\\python.exe'
+
+"let mapleader= "<SPACE>" 
+
+command Todo Ag! 'TODO|FIXME|CHANGED|BUG|HACK'
+command Debug Ag! 'NOTE|INFO|IDEA' 
+if has("autocmd")
+ " Highlight TODO, FIXME, NOTE, etc.
+ if v:version > 701
+     autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|BUG\|HACK\)')
+     autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\)')
+ endif
+endif

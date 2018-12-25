@@ -55,6 +55,7 @@ vim-misc https://github.com/xolox/vim-misc
 vim-sensible https://github.com/tpope/vim-sensible
 nerdcommenter https://github.com/scrooloose/nerdcommenter
 ag.vim https://github.com/vim-scripts/ag.vim
+python-mode https://github.com/python-mode/python-mode
 """.strip()
 
 

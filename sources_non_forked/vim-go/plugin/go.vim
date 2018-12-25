@@ -175,7 +175,7 @@ function! s:GoInstallBinaries(updateBinaries, ...)
 
       " and then build and install it
       let l:build_cmd = ['go', 'build', '-o', go_bin_path . go#util#PathSep() . bin, l:importPath]
-      let [l:out, l:err] = go#util#Exec(l:build_cmd + [l:importPath])
+      let [l:out, l:err] = go#util#Exec(l:build_cmd)
       if l:err
         echom "Error installing " . l:importPath . ": " . l:out
       endif
@@ -277,7 +277,7 @@ endfunction
 
 function! s:template_autocreate()
   " create new template from scratch
-  if get(g:, "go_template_autocreate", 1)
+  if get(g:, "go_template_autocreate", 1) && &modifiable
     call go#template#create()
   endif
 endfunction
