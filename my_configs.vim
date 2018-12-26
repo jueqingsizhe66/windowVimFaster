@@ -402,7 +402,7 @@ let g:move_key_modifier = 'C'
 "" v visual   0  start of line    x: delete  k: move cursor upper line  $:
 "$" last column   a: input words
 nmap <F8> O<ESC>O<ESC>jO- Brief Summary(by yzl):<CR><ESC>0d$i{{{<CR><Tab><CR><ESC>v0xk$a1. so what?
-nmap <F7> <ESC>oTODO(yzl)<ESC>
+nmap <F7> <ESC>o(TODO(yzl))<ESC>
 
 "nmap <C-a> gg0vG$
 "
@@ -523,4 +523,4 @@ if has("autocmd")
      autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|BUG\|HACK\)')
      autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\)')
  endif
-endif
+
