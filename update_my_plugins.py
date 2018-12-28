@@ -49,6 +49,7 @@ clever-f.vim https://github.com/rhysd/clever-f.vim
 csv.vim https://github.com/chrisbra/csv.vim
 calendar-vim https://github.com/mattn/calendar-vim
 vim-plugins https://github.com/WolfgangMehner/vim-plugins
+vim-perl https://github.com/vim-perl/vim-perl
 tagbar https://github.com/majutsushi/tagbar
 vim-easytags https://github.com/xolox/vim-easytags
 vim-misc https://github.com/xolox/vim-misc

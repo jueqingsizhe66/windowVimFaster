@@ -524,3 +524,5 @@ if has("autocmd")
      autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\)')
  endif
 
+filetype plugin on
+filetype indent on

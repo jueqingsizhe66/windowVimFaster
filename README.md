@@ -18,6 +18,8 @@
 14. 添加了TODO,FIXME等关键字的高亮，`F7` 添加TODO(yzl),`,g`调用`:ACK` 然后写上TODO就可以过滤项目中所有具有TODO字段的行了(习惯性地添加TODO,FIXME,BUG等) [TODO高亮](https://www.jb51.net/article/115922.htm)
 15. `,fu`查看当前代码文件的所有函数  `,fU`跳转到指定函数中
 16.  `F8`添加so what 总结性声明.
+17. 编写perl文件常用命令，读取文件`\ii`,输出文件`\io`,while循环`\sw`,for循环`\sfe`, 另外你不能忘记的三个数据结构,标量`\id`,数组`\ia`,字典`\ih`
+18. Interesting,不妨试试! `,z`打开goyo界面，很好看
 
 
 # The Ultimate vimrc
