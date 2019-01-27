@@ -10,9 +10,11 @@
 6. 原有的配置居然支持保存更新，很厉害
 7. 增加了nerdcomment方便注释`(,cc)`, 替换掉vim-commentary
 8. Comfortable-motion也是挺有用的`<C-f><C-d><C-u><C-b>`
-9. 增加我的`,a 搜索光标下单词 和<space>/打开Ag`,`,cad`调用calendar,然后写wiki,`,wi`写日记也是可以的
+9. 增加我的`,a 搜索光标下单词 和<space>/打开Ag`,`,cad`调用calendar,然后写wiki,`,wi`写日记也是可以的,`[[#]]`在#之后可以使用`Ctrl-X Ctrl-o`会弹出一个列表
+    不忍放弃vim的一个原因，很方便; 摁下`+`表示增加header，`-`表示较少header
 10. `C:\Users\yzl`的.NERDTreeBookmarks nerdtree的`:Bookmark`对应的文件夹名名字,`_vim_mru_files`保存着最近访问的文件,`_vimtags`保存着所有tag相关的记录.
 11. `C-s`变成加入光标, `Alt-S`变成添加符合全部单词下的光标,`ESC`推出MC(multiple cursors)模式
+[[#pringout]]
 12. `gf` open file under cursor,如果是路径的话(配合上vimwiki).
 13. easymotion的<leader>j和k可以正常于运行
 14. 添加了TODO,FIXME等关键字的高亮，`F7` 添加TODO(yzl),`,g`调用`:ACK` 然后写上TODO就可以过滤项目中所有具有TODO字段的行了(习惯性地添加TODO,FIXME,BUG等) [TODO高亮](https://www.jb51.net/article/115922.htm)
@@ -21,6 +23,7 @@
 17. 编写perl文件常用命令，读取文件`\ii`,输出文件`\io`,while循环`\sw`,for循环`\sfe`, 另外你不能忘记的三个数据结构,标量`\id`,数组`\ia`,字典`\ih`
 18. Interesting,不妨试试! `,z`打开goyo界面，很好看
 
+![Vim-features][1]
 
 # The Ultimate vimrc
 
@@ -350,3 +353,5 @@ Cope mappings:
 Just do following:
 * Remove `~/.vim_runtime`
 * Remove any lines that reference `.vim_runtime` in your `~/.vimrc`
+
+[1]: https://github.com/jueqingsizhe66/windowVimFaster/tree/develop/img/vimFeatures.png
