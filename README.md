@@ -354,4 +354,4 @@ Just do following:
 * Remove `~/.vim_runtime`
 * Remove any lines that reference `.vim_runtime` in your `~/.vimrc`
 
-[1]: https://github.com/jueqingsizhe66/windowVimFaster/tree/develop/img/vimFeatures.png
+[1]: https://github.com/jueqingsizhe66/windowVimFaster/blob/develop/img/vimFeatures.png
