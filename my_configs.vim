@@ -362,7 +362,7 @@ inoremap <C-t>     <Esc>:tabnew<CR>
 """""""""""""""""""""""""""""""""""""""""""""""
 "" for wiki
 """""""""""""""""""""""""""""""""""""""""""""""
-let g:vimwiki_list = [{ 'path': '~/.vim/vimwiki/', 'path_html': '~/.vim/vimwiki_html','auto_toc': 1}]
+let g:vimwiki_list = [{ 'path': '~/.vim_runtime/vimwiki/', 'path_html': '~/.vim_runtime/vimwiki_html','auto_toc': 1}]
 nmap <C-@> <Plug>VimwikiToggleListItem
 vmap <C-@> <Plug>VimwikiToggleListItem
 let g:vimwiki_folding='list'

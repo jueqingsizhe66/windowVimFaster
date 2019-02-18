@@ -108,7 +108,11 @@ function! s:renameBuffer(bufNum, newNodeName, isDirectory)
     exec "tabnext " . s:originalTabNumber
     exec s:originalWindowNumber . "wincmd w"
     " 3. We don't need a previous buffer anymore
-    exec "bwipeout! " . a:bufNum
+    try
+        exec "confirm bwipeout " . a:bufNum
+    catch
+        " This happens when answering Cancel if confirmation is needed. Do nothing.
+    endtry
 endfunction
 "FUNCTION: NERDTreeAddNode(){{{1
 function! NERDTreeAddNode()
@@ -198,6 +202,8 @@ endfunction
 
 " FUNCTION: NERDTreeDeleteNode() {{{1
 function! NERDTreeDeleteNode()
+    let l:shellslash = &shellslash
+    let &shellslash = 0
     let currentNode = g:NERDTreeFileNode.GetSelected()
     let confirmed = 0
 
@@ -238,7 +244,7 @@ function! NERDTreeDeleteNode()
     else
         call nerdtree#echo("delete aborted")
     endif
-
+    let &shellslash = l:shellslash
 endfunction
 
 " FUNCTION: NERDTreeListNode() {{{1
@@ -283,6 +289,8 @@ endfunction
 
 " FUNCTION: NERDTreeCopyNode() {{{1
 function! NERDTreeCopyNode()
+    let l:shellslash = &shellslash
+    let &shellslash = 0
     let currentNode = g:NERDTreeFileNode.GetSelected()
     let newNodePath = input("Copy the current node\n" .
                           \ "==========================================================\n" .
@@ -320,6 +328,7 @@ function! NERDTreeCopyNode()
     else
         call nerdtree#echo("Copy aborted.")
     endif
+    let &shellslash = l:shellslash
     redraw
 endfunction
 

@@ -181,7 +181,7 @@ endfunction
 let s:git_versions = {}
 function! fugitive#GitVersion(...) abort
   if !has_key(s:git_versions, g:fugitive_git_executable)
-    let s:git_versions[g:fugitive_git_executable] = matchstr(system(g:fugitive_git_executable.' --version'), "\\S\\+\\ze\n")
+    let s:git_versions[g:fugitive_git_executable] = matchstr(system(g:fugitive_git_executable.' --version'), '\d\S\+')
   endif
   if !a:0
     return s:git_versions[g:fugitive_git_executable]
@@ -1521,7 +1521,6 @@ function! fugitive#BufReadStatus() abort
 
     set nomodified readonly noswapfile
     silent doautocmd BufReadPost
-    set filetype=fugitive
     setlocal nomodifiable
     if &bufhidden ==# ''
       setlocal bufhidden=delete
@@ -1540,12 +1539,6 @@ function! fugitive#BufReadStatus() abort
     exe "nnoremap <buffer> <silent>" nowait "u :<C-U>execute <SID>StageToggleOnly('Staged',line('.'),v:count)<CR>"
     exe "xnoremap <buffer> <silent>" nowait "u :<C-U>execute <SID>StageToggle(line(\"'<\"),line(\"'>\")-line(\"'<\")+1)<CR>"
     nnoremap <buffer> <silent> C :<C-U>Gcommit<CR>:echohl WarningMsg<Bar>echo ':Gstatus C is deprecated in favor of cc'<Bar>echohl NONE<CR>
-    nnoremap <buffer> <silent> ca :<C-U>Gcommit --amend<CR>
-    nnoremap <buffer> <silent> cc :<C-U>Gcommit<CR>
-    nnoremap <buffer> <silent> ce :<C-U>Gcommit --amend --no-edit<CR>
-    nnoremap <buffer> <silent> cw :<C-U>Gcommit --amend --only<CR>
-    nnoremap <buffer> <silent> cva :<C-U>Gcommit -v --amend<CR>
-    nnoremap <buffer> <silent> cvc :<C-U>Gcommit -v<CR>
     nnoremap <buffer> <silent> a :<C-U>execute <SID>StageInline('toggle',line('.'),v:count)<CR>
     nnoremap <buffer> <silent> i :<C-U>execute <SID>StageInline('toggle',line('.'),v:count)<CR>
     exe 'nnoremap <buffer> <silent>' nowait "= :<C-U>execute <SID>StageInline('toggle',line('.'),v:count)<CR>"
@@ -1563,7 +1556,6 @@ function! fugitive#BufReadStatus() abort
     nnoremap <buffer> <silent> P :<C-U>execute <SID>StagePatch(line('.'),line('.')+v:count1-1)<CR>
     xnoremap <buffer> <silent> P :<C-U>execute <SID>StagePatch(line("'<"),line("'>"))<CR>
     nnoremap <buffer> <silent> q :<C-U>if bufnr('$') == 1<Bar>quit<Bar>else<Bar>bdelete<Bar>endif<CR>
-    nnoremap <buffer> <silent> r :<C-U>exe <SID>ReloadStatus()<CR>
     nnoremap <buffer> <silent> R :<C-U>exe <SID>ReloadStatus()<CR>
     nnoremap <buffer> <silent> U :<C-U>echoerr 'Changed to X'<CR>
     nnoremap <buffer> <silent> g<Bar> :<C-U>execute <SID>StageDelete(line('.'),v:count)<CR>
@@ -1572,8 +1564,8 @@ function! fugitive#BufReadStatus() abort
     xnoremap <buffer> <silent> X :<C-U>execute <SID>StageDelete(line("'<"),line("'>")-line("'<")+1)<CR>
     nnoremap <buffer>          . : <C-R>=<SID>fnameescape(get(<SID>StatusCfile(),0,''))<CR><Home>
     nnoremap <buffer> <silent> q    :<C-U>bdelete<CR>
-    nnoremap <buffer> <silent> g?   :help fugitive-:Gstatus<CR>
-    nnoremap <buffer> <silent> <F1> :help fugitive-:Gstatus<CR>
+    nnoremap <buffer> <silent> <F1> :help fugitive-mappings<CR>
+    set filetype=fugitive
 
     for [lnum, section] in [[staged_end, 'Staged'], [unstaged_end, 'Unstaged']]
       while len(getline(lnum))
@@ -1909,7 +1901,7 @@ function! s:Status(bang, count, mods) abort
   try
     let mods = a:mods ==# '<mods>' || empty(a:mods) ? '' : a:mods . ' '
     if mods !~# 'aboveleft\|belowright\|leftabove\|rightbelow\|topleft\|botright'
-      let mods = 'topleft ' . mods
+      let mods = (&splitbelow ? 'botright ' : 'topleft ') . mods
     endif
     let file = fugitive#Find(':')
     let arg = ' +setl\ foldmethod=syntax\ foldlevel=1\|let\ w:fugitive_status=FugitiveGitDir() ' .
@@ -1994,6 +1986,9 @@ function! s:StageSeek(info, fallback) abort
 endfunction
 
 function! s:ReloadStatus(...) abort
+  if get(b:, 'fugitive_type', '') !=# 'index'
+    return ''
+  endif
   let original_lnum = a:0 ? a:1 : line('.')
   let info = s:StageInfo(original_lnum)
   call fugitive#BufReadStatus()
@@ -2038,9 +2033,9 @@ endfunction
 
 function! s:StageInfo(...) abort
   let lnum = a:0 ? a:1 : line('.')
-  let sigil = matchstr(getline('.'), '^[ @\+-]')
+  let sigil = matchstr(getline(lnum), '^[ @\+-]')
   let offset = -1
-  if getline(lnum) =~# '^[ @\+-]'
+  if len(sigil)
     let type = sigil ==# '-' ? '-' : '+'
     while lnum > 0 && getline(lnum) !~# '^@'
       if getline(lnum) =~# '^[ '.type.']'
@@ -2076,7 +2071,7 @@ endfunction
 function! s:StageReveal(...) abort
   let begin = a:0 ? a:1 : line('.')
   if getline(begin) =~# '^@'
-    let end = line(begin) + 1
+    let end = begin + 1
     while getline(end) =~# '^[ \+-]'
       let end += 1
     endwhile
@@ -2104,11 +2099,6 @@ function! s:StagePrevious(count) abort
     call s:StageReveal()
     return '.'
   endif
-endfunction
-
-function! s:StageReloadSeek(target,lnum1,lnum2) abort
-  exe s:ReloadStatus(a:lnum1)
-  return ''
 endfunction
 
 function! s:StageInline(mode, ...) abort
@@ -2163,9 +2153,9 @@ function! s:StageInline(mode, ...) abort
         endif
         let start = index
         let mode = 'head'
-      elseif mode ==# 'head' && line ==# '--- ' . info.filename
+      elseif mode ==# 'head' && substitute(line, "\t$", '', '') ==# '--- ' . info.filename
         let mode = 'await'
-      elseif mode ==# 'head' && line ==# '+++ ' . info.filename
+      elseif mode ==# 'head' && substitute(line, "\t$", '', '') ==# '+++ ' . info.filename
         let mode = 'await'
       elseif mode ==# 'capture'
         call add(diff, line)
@@ -2218,16 +2208,7 @@ function! s:StageDiffEdit() abort
     return 'Git! diff --no-ext-diff --cached '.s:shellesc(arg)
   elseif info.status ==# '?'
     call s:TreeChomp('add', '--intent-to-add', './' . arg)
-    if arg ==# '.'
-      silent! edit!
-      1
-      if !search('^Unstaged','W')
-        call search('^Staged','W')
-      endif
-    else
-      call s:StageReloadSeek([info.filename, 'Staged'], line('.'), line('.'))
-    endif
-    return ''
+    return s:ReloadStatus()
   else
     return 'Git! diff --no-ext-diff '.s:shellesc(arg)
   endif
@@ -2876,7 +2857,7 @@ endfunction
 
 function! s:UsableWin(nr) abort
   return a:nr && !getwinvar(a:nr, '&previewwindow') &&
-        \ (empty(getwinvar(a:nr, 'fugitive_status')) || getwinvar(a:nr, 'fugitive_type') !=# 'index') &&
+        \ (empty(getwinvar(a:nr, 'fugitive_status')) || getbufvar(winbufnr(a:nr), 'fugitive_type') !=# 'index') &&
         \ index(['gitrebase', 'gitcommit'], getbufvar(winbufnr(a:nr), '&filetype')) < 0 &&
         \ index(['nofile','help','quickfix'], getbufvar(winbufnr(a:nr), '&buftype')) < 0
 endfunction
@@ -3012,8 +2993,8 @@ endfunction
 call s:command("-bar -bang -nargs=*           -complete=customlist,fugitive#Complete Ge       execute s:Edit('edit<bang>', 0, '<mods>', <q-args>, <f-args>)")
 call s:command("-bar -bang -nargs=*           -complete=customlist,fugitive#Complete Gedit    execute s:Edit('edit<bang>', 0, '<mods>', <q-args>, <f-args>)")
 call s:command("-bar -bang -nargs=*           -complete=customlist,s:EditRunComplete Gpedit   execute s:Edit('pedit', <bang>0, '<mods>', <q-args>, <f-args>)")
-call s:command("-bar -bang -nargs=* -range=0  -complete=customlist,s:EditRunComplete Gsplit   execute s:Edit((<count> ? <count> : '').'split', <bang>0, '<mods>', <q-args>, <f-args>)")
-call s:command("-bar -bang -nargs=* -range=0  -complete=customlist,s:EditRunComplete Gvsplit  execute s:Edit((<count> ? <count> : '').'vsplit', <bang>0, '<mods>', <q-args>, <f-args>)")
+call s:command("-bar -bang -nargs=* -range=-1 -complete=customlist,s:EditRunComplete Gsplit   execute s:Edit((<count> > 0 ? <count> : '').(<count> ? 'split' : 'edit'), <bang>0, '<mods>', <q-args>, <f-args>)")
+call s:command("-bar -bang -nargs=* -range=-1 -complete=customlist,s:EditRunComplete Gvsplit  execute s:Edit((<count> > 0 ? <count> : '').(<count> ? 'vsplit' : 'edit!'), <bang>0, '<mods>', <q-args>, <f-args>)")
 call s:command("-bar -bang -nargs=* -range=0  -complete=customlist,s:EditRunComplete" . (has('patch-7.4.542') ? ' -addr=tabs' : '') . " Gtabedit execute s:Edit((<count> ? <count> : '').'tabedit', <bang>0, '<mods>', <q-args>, <f-args>)")
 call s:command("-bar -bang -nargs=* -range=-1 -complete=customlist,s:EditRunComplete Gread execute s:Read(<count>, <line1>, <line2>, +'<range>', <bang>0, '<mods>', <q-args>, <f-args>)")
 
@@ -3549,13 +3530,7 @@ function! s:Blame(bang, line1, line2, count, mods, args) abort
     let cmd += ['--', expand('%:p')]
     let basecmd = escape(fugitive#Prepare(cmd), '!#%')
     try
-      let cd = s:Cd()
-      let tree = s:Tree()
-      let cdback = s:Cd(tree)
-      if len(tree) && s:cpath(tree) !=# s:cpath(getcwd())
-        let cwd = getcwd()
-        execute cd s:fnameescape(tree)
-      endif
+      let cdback = s:Cd(s:Tree())
       let error = tempname()
       let temp = error.'.fugitiveblame'
       if &shell =~# 'csh'
@@ -3563,10 +3538,10 @@ function! s:Blame(bang, line1, line2, count, mods, args) abort
       else
         silent! execute '%write !'.basecmd.' > '.temp.' 2> '.error
       endif
-      if exists('l:cwd')
-        execute cd s:fnameescape(cwd)
-        unlet cwd
-      endif
+    finally
+      execute cdback
+    endtry
+    try
       if v:shell_error
         call s:throw(join(readfile(error),"\n"))
       endif
@@ -3638,10 +3613,6 @@ function! s:Blame(bang, line1, line2, count, mods, args) abort
         nnoremap <buffer> <silent> D    :<C-u>exe "vertical resize ".(<SID>linechars('.\{-\}\ze\d\ze\s\+\d\+)')+1-v:count)<CR>
         redraw
         syncbind
-      endif
-    finally
-      if exists('l:cwd')
-        execute cd s:fnameescape(cwd)
       endif
     endtry
     return ''
@@ -4082,12 +4053,17 @@ function! fugitive#MapJumps(...) abort
     nnoremap <buffer> <silent> P     :<C-U>exe 'Gedit ' . <SID>fnameescape(<SID>ContainingCommit().'^'.v:count1.<SID>Relative(':'))<CR>
     nnoremap <buffer> <silent> ~     :<C-U>exe 'Gedit ' . <SID>fnameescape(<SID>ContainingCommit().'~'.v:count1.<SID>Relative(':'))<CR>
     nnoremap <buffer> <silent> C     :<C-U>exe 'Gedit ' . <SID>fnameescape(<SID>ContainingCommit())<CR>
-    nnoremap <buffer> <silent> cc    :<C-U>echoerr 'Use C'<CR>
     nnoremap <buffer> <silent> co    :<C-U>echoerr 'Use CTRL-W C'<CR>
     nnoremap <buffer> <silent> <C-W>C :<C-U>exe 'Gsplit ' . <SID>fnameescape(<SID>ContainingCommit())<CR>
     nnoremap <buffer> <silent> cp    :<C-U>echoerr 'Use gC'<CR>
     nnoremap <buffer> <silent> gC    :<C-U>exe 'Gpedit ' . <SID>fnameescape(<SID>ContainingCommit())<CR>
     nnoremap <buffer> <silent> gc    :<C-U>exe 'Gpedit ' . <SID>fnameescape(<SID>ContainingCommit())<CR>
+    nnoremap <buffer> <silent> ca    :<C-U>Gcommit --amend<CR>
+    nnoremap <buffer> <silent> cc    :<C-U>Gcommit<CR>
+    nnoremap <buffer> <silent> ce    :<C-U>Gcommit --amend --no-edit<CR>
+    nnoremap <buffer> <silent> cw    :<C-U>Gcommit --amend --only<CR>
+    nnoremap <buffer> <silent> cva   :<C-U>Gcommit -v --amend<CR>
+    nnoremap <buffer> <silent> cvc   :<C-U>Gcommit -v<CR>
     nnoremap <buffer>          cf    :<C-U>Gcommit --fixup=<C-R>=<SID>SquashArgument()<CR>
     nnoremap <buffer>          cs    :<C-U>Gcommit --squash=<C-R>=<SID>SquashArgument()<CR>
     nnoremap <buffer>          cA    :<C-U>Gcommit --edit --squash=<C-R>=<SID>SquashArgument()<CR>
@@ -4097,12 +4073,15 @@ function! fugitive#MapJumps(...) abort
     nnoremap <buffer> <silent> rp    :<C-U>Grebase --interactive @{push}<CR>
     nnoremap <buffer> <silent> rw    :<C-U>exe 'Grebase --interactive<C-R>=substitute(<SID>SquashArgument(),'.\+',' &^','')<CR>'<Bar>s/^pick/reword/e<CR>
     nnoremap <buffer> <silent> rm    :<C-U>exe 'Grebase --interactive<C-R>=substitute(<SID>SquashArgument(),'.\+',' &^','')<CR>'<Bar>s/^pick/edit/e<CR>
+    nnoremap <buffer> <silent> rd    :<C-U>exe 'Grebase --interactive<C-R>=substitute(<SID>SquashArgument(),'.\+',' &^','')<CR>'<Bar>s/^pick/drop/e<CR>
     nnoremap <buffer> <silent> rk    :<C-U>exe 'Grebase --interactive<C-R>=substitute(<SID>SquashArgument(),'.\+',' &^','')<CR>'<Bar>s/^pick/drop/e<CR>
+    nnoremap <buffer> <silent> rx    :<C-U>exe 'Grebase --interactive<C-R>=substitute(<SID>SquashArgument(),'.\+',' &^','')<CR>'<Bar>s/^pick/drop/e<CR>
     nnoremap <buffer> <silent> rr    :<C-U>Grebase --continue<CR>
     nnoremap <buffer> <silent> rs    :<C-U>Grebase --skip<CR>
     nnoremap <buffer> <silent> re    :<C-U>Grebase --edit-todo<CR>
     nnoremap <buffer> <silent> ra    :<C-U>Grebase --abort<CR>
     nmap     <buffer>          .     <SID>: <Plug><cfile><Home>
+    nnoremap <buffer> <silent> g?   :help fugitive-mappings<CR>
   endif
 endfunction
 

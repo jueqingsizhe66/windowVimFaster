@@ -151,9 +151,12 @@ if g:ale_completion_enabled
 endif
 
 " Define commands for moving through warnings and errors.
-command! -bar ALEPrevious :call ale#loclist_jumping#Jump('before', 0)
+command! -bar -nargs=* ALEPrevious
+\    :call ale#loclist_jumping#WrapJump('before', <q-args>)
+command! -bar -nargs=* ALENext
+\    :call ale#loclist_jumping#WrapJump('after', <q-args>)
+
 command! -bar ALEPreviousWrap :call ale#loclist_jumping#Jump('before', 1)
-command! -bar ALENext :call ale#loclist_jumping#Jump('after', 0)
 command! -bar ALENextWrap :call ale#loclist_jumping#Jump('after', 1)
 command! -bar ALEFirst :call ale#loclist_jumping#JumpToIndex(0)
 command! -bar ALELast :call ale#loclist_jumping#JumpToIndex(-1)
@@ -202,7 +205,7 @@ command! -bar ALEGoToTypeDefinitionInSplit :call ale#definition#GoToType({'open_
 command! -bar ALEGoToTypeDefinitionInVSplit :call ale#definition#GoToType({'open_in': 'vertical-split'})
 
 " Find references for tsserver and LSP
-command! -bar ALEFindReferences :call ale#references#Find()
+command! -bar -nargs=* ALEFindReferences :call ale#references#Find(<f-args>)
 
 " Show summary information for the cursor.
 command! -bar ALEHover :call ale#hover#ShowAtCursor()
@@ -218,8 +221,16 @@ command! -bar ALEComplete :call ale#completion#AlwaysGetCompletions(0)
 " <Plug> mappings for commands
 nnoremap <silent> <Plug>(ale_previous) :ALEPrevious<Return>
 nnoremap <silent> <Plug>(ale_previous_wrap) :ALEPreviousWrap<Return>
+nnoremap <silent> <Plug>(ale_previous_error) :ALEPrevious -error<Return>
+nnoremap <silent> <Plug>(ale_previous_wrap_error) :ALEPrevious -wrap -error<Return>
+nnoremap <silent> <Plug>(ale_previous_warning) :ALEPrevious -warning<Return>
+nnoremap <silent> <Plug>(ale_previous_wrap_warning) :ALEPrevious -wrap -warning<Return>
 nnoremap <silent> <Plug>(ale_next) :ALENext<Return>
 nnoremap <silent> <Plug>(ale_next_wrap) :ALENextWrap<Return>
+nnoremap <silent> <Plug>(ale_next_error) :ALENext -error<Return>
+nnoremap <silent> <Plug>(ale_next_wrap_error) :ALENext -wrap -error<Return>
+nnoremap <silent> <Plug>(ale_next_warning) :ALENext -warning<Return>
+nnoremap <silent> <Plug>(ale_next_wrap_warning) :ALENext -wrap -warning<Return>
 nnoremap <silent> <Plug>(ale_first) :ALEFirst<Return>
 nnoremap <silent> <Plug>(ale_last) :ALELast<Return>
 nnoremap <silent> <Plug>(ale_toggle) :ALEToggle<Return>
@@ -258,6 +269,6 @@ augroup ALECleanupGroup
     autocmd QuitPre * call ale#events#QuitEvent(str2nr(expand('<abuf>')))
 
     if exists('##VimSuspend')
-      autocmd VimSuspend * if exists('*ale#engine#CleanupEveryBuffer') | call ale#engine#CleanupEveryBuffer() | endif
+        autocmd VimSuspend * if exists('*ale#engine#CleanupEveryBuffer') | call ale#engine#CleanupEveryBuffer() | endif
     endif
 augroup END

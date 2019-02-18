@@ -86,8 +86,8 @@ function! ale#c#ParseCFlags(path_prefix, cflag_line) abort
         let l:next_option_index = l:option_index + 1
 
         " Join space-separated option
-        while l:next_option_index < len(l:split_lines) &&
-            \ stridx(l:split_lines[l:next_option_index], '-') != 0
+        while l:next_option_index < len(l:split_lines)
+        \&& stridx(l:split_lines[l:next_option_index], '-') != 0
             let l:next_option_index += 1
         endwhile
 
@@ -96,9 +96,9 @@ function! ale#c#ParseCFlags(path_prefix, cflag_line) abort
         call insert(l:split_lines, l:option, l:option_index)
 
         " Ignore invalid or conflicting options
-        if stridx(l:option, '-') != 0 ||
-            \ stridx(l:option, '-o') == 0 ||
-            \ stridx(l:option, '-c') == 0
+        if stridx(l:option, '-') != 0
+        \|| stridx(l:option, '-o') == 0
+        \|| stridx(l:option, '-c') == 0
             call remove(l:split_lines, l:option_index)
             let l:option_index = l:option_index - 1
         " Fix relative path
@@ -202,7 +202,7 @@ function! s:GetLookupFromCompileCommandsFile(compile_commands_file) abort
         let l:file_lookup[l:basename] = get(l:file_lookup, l:basename, []) + [l:entry]
 
         let l:dirbasename = tolower(fnamemodify(l:entry.directory, ':p:h:t'))
-        let l:dir_lookup[l:dirbasename] = get(l:dir_lookup, l:basename, []) + [l:entry]
+        let l:dir_lookup[l:dirbasename] = get(l:dir_lookup, l:dirbasename, []) + [l:entry]
     endfor
 
     if !empty(l:file_lookup) && !empty(l:dir_lookup)
@@ -221,7 +221,7 @@ function! ale#c#ParseCompileCommandsFlags(buffer, file_lookup, dir_lookup) abort
     let l:file_list = get(a:file_lookup, l:basename, [])
 
     for l:item in l:file_list
-        if bufnr(l:item.file) is a:buffer
+        if bufnr(l:item.file) is a:buffer && has_key(l:item, 'command')
             return ale#c#ParseCFlags(l:item.directory, l:item.command)
         endif
     endfor
@@ -234,6 +234,7 @@ function! ale#c#ParseCompileCommandsFlags(buffer, file_lookup, dir_lookup) abort
 
     for l:item in l:dir_list
         if ale#path#Simplify(fnamemodify(l:item.file, ':h')) is? l:dir
+        \&& has_key(l:item, 'command')
             return ale#c#ParseCFlags(l:item.directory, l:item.command)
         endif
     endfor

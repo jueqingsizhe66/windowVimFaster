@@ -30,6 +30,8 @@ IMPROVEMENTS:
   [[GH-2122]](https://github.com/fatih/vim-go/pull/2122)
 * Highlight fields followed by an operator when `g:go_highlight_fields` is set.
   [[GH-1907]](https://github.com/fatih/vim-go/pull/1907)
+* Skip autosave actions when the buffer is not a readable file.
+  [[GH-2143]](https://github.com/fatih/vim-go/pull/2143)
 
 BUG FIXES:
 * Fix opening of non-existent file from `:GoDeclsDir` when the current
@@ -57,6 +59,8 @@ BUG FIXES:
   [[GH-2126]](https://github.com/fatih/vim-go/pull/2126)
 * Fix race conditions in `:GoDebugStop`.
   [[GH-2127]](https://github.com/fatih/vim-go/pull/2127)
+* Fix jumping to module or package using godef.
+  [[GH-2141]](https://github.com/fatih/vim-go/pull/2141)
 
 ## 1.19 - (November 4, 2018)
 
