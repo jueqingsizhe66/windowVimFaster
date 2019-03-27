@@ -24,6 +24,8 @@
 18. Interesting,不妨试试! `,z`打开goyo界面，很好看
 19. 先设置一个mark`mA`,然后由于大写字母支持文件间跳转，于是`~A`也是可以跳转到先前的位置 很方便
 20. 修改了vimwiki配置到vim_runtime.
+21. 搞清楚[ vim-snipmate ][3]和[ vim-snippets ][2]的关系
+不断去学习[ vim-snippets ][2], [vim-snipmate设计理念][4]
 
 ![Vim-features][1]
 
@@ -123,7 +125,8 @@ I recommend reading the docs of these plugins to understand them better. Each pl
 * [mru.vim](https://github.com/vim-scripts/mru.vim): Plugin to manage Most Recently Used (MRU) files. This plugin can be opened with `<leader+f>` 删掉他，ctrlp已经集成了MRU功能，多余
 * [open_file_under_cursor.vim](https://github.com/amix/open_file_under_cursor.vim): Open file under cursor when pressing `gf`
 * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your vim runtimepath 
-* [snipmate.vim](https://github.com/garbas/vim-snipmate): snipmate.vim aims to be a concise vim script that implements some of TextMate's snippets features in Vim
+* [snipmate.vim](https://github.com/garbas/vim-snipmate): snipmate.vim aims to be a concise vim script that implements some of TextMate's snippets features in Vim,vim-snipmate default [snippets][2] (Previously snipmate-snippets) 
+    也就是说vim-snipmate回去读取vim-snippets项目的snippets.
 * [ale](https://github.com/w0rp/ale): Syntax and lint checking for vim (async)
 * [vim-commentary](https://github.com/tpope/vim-commentary): Comment stuff out.  Use `gcc` to comment out a line (takes a count), `gc` to comment out the target of a motion. `gcu` uncomments a set of adjacent commented lines.(使用nerdcommenter替换他!!!!!)
 * [vim-expand-region](https://github.com/terryma/vim-expand-region): Allows you to visually select increasingly larger regions of text using the same key combination
@@ -357,4 +360,6 @@ Just do following:
 * Remove any lines that reference `.vim_runtime` in your `~/.vimrc`
 
 [1]: https://github.com/jueqingsizhe66/windowVimFaster/tree/develop/img/vimFeatures.png
-[1]: https://github.com/jueqingsizhe66/windowVimFaster/blob/develop/img/vimFeatures.png
+[2]:https://github.com/honza/vim-snippets 
+[3]:https://github.com/garbas/vim-snipmate 
+[4]:http://vim-wiki.mawercer.de/wiki/topic/text-snippets-skeletons-templates.html 
