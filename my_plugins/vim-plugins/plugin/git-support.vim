@@ -11,8 +11,8 @@
 "  Organization:  
 "       Version:  see variable g:GitSupport_Version below
 "       Created:  06.10.2012
-"      Revision:  17.01.2018
-"       License:  Copyright (c) 2012-2016, Wolfgang Mehner
+"      Revision:  14.04.2019
+"       License:  Copyright (c) 2012-2019, Wolfgang Mehner
 "                 This program is free software; you can redistribute it and/or
 "                 modify it under the terms of the GNU General Public License as
 "                 published by the Free Software Foundation, version 2 of the
@@ -531,8 +531,8 @@ function! s:ShellParseArgs ( line )
 			let curr .= mlist[1]
 			let line  = mlist[2]
 		else
-			" otherwise parse up to next space
-			let mlist = matchlist ( line, '^\(\S\+\)\(.*\)' )
+			" otherwise parse up to next special char.: space, backslash, quote
+			let mlist = matchlist ( line, '^\([^[:space:]\\''"]\+\)\(.*\)' )
 			let curr .= mlist[1]
 			let line  = mlist[2]
 		endif
@@ -1127,19 +1127,25 @@ else
 endif
 "
 " syntax highlighting   {{{2
-"
-highlight default link GitComment     Comment
-highlight default      GitHeading     term=bold       cterm=bold       gui=bold
-highlight default link GitHighlight1  Identifier
-highlight default link GitHighlight2  PreProc
-highlight default      GitHighlight3  term=underline  cterm=underline  gui=underline
-highlight default link GitWarning     WarningMsg
-highlight default link GitSevere      ErrorMsg
-"
-highlight default link GitAdd         DiffAdd
-highlight default link GitRemove      DiffDelete
-highlight default link GitConflict    DiffText
-"
+
+function! s:HighlightingDefaults ()
+	highlight default link GitComment     Comment
+	highlight default      GitHeading     term=bold       cterm=bold       gui=bold
+	highlight default link GitHighlight1  Identifier
+	highlight default link GitHighlight2  PreProc
+	highlight default      GitHighlight3  term=underline  cterm=underline  gui=underline
+	highlight default link GitWarning     WarningMsg
+	highlight default link GitSevere      ErrorMsg
+
+	highlight default link GitAdd         DiffAdd
+	highlight default link GitRemove      DiffDelete
+	highlight default link GitConflict    DiffText
+endfunction    " ----------  end of function s:HighlightingDefaults  ----------
+
+augroup GitSupport
+	autocmd VimEnter,ColorScheme * call s:HighlightingDefaults()
+augroup END
+
 " }}}2
 "-------------------------------------------------------------------------------
 "
@@ -4242,10 +4248,12 @@ function! s:GitK( param )
 	elseif s:FoundGitKScript == 0
 		return s:ErrorMsg ( s:DisableGitKMessage, s:GitKScriptReason )
 	endif
-	"
+
 	let param = escape( a:param, '%#' )
-	"
-	if s:MSWIN
+
+	if s:NEOVIM
+		call jobstart ( s:Git_GitKExecutable.' '.s:Git_GitKScript.' '.param, { 'detach' : 1 } )
+	elseif s:MSWIN
 		" :TODO:02.01.2014 13:00:WM: Windows: try the shell command 'start'
 		silent exe '!start '.s:Git_GitKExecutable.' '.s:Git_GitKScript.' '.param
 	else
@@ -4282,8 +4290,14 @@ function! s:GitBash( param )
 			let title = ''
 		endif
 
-		silent exe '!'.s:Git_GitBashExecutable.' '.g:Xterm_Options.title
-					\ .' -e '.shellescape( s:Git_Executable.' '.param.' ; echo "" ; read -p "  ** PRESS ENTER **  " dummy ' ).' &'
+		if s:NEOVIM
+			let job_id = jobstart ( s:Git_GitBashExecutable.' '.g:Xterm_Options.title
+						\ .' -e '.shellescape( s:Git_Executable.' '.param.' ; echo "" ; read -p "  ** PRESS ENTER **  " dummy ' ),
+						\ { 'detach' : 1 } )
+		else
+			silent exe '!' s:Git_GitBashExecutable g:Xterm_Options title
+						\  '-e ' shellescape( s:Git_Executable.' '.param.' ; echo "" ; read -p "  ** PRESS ENTER **  " dummy ' ) '&'
+		endif
 
 		call s:Redraw ( 'r!', '' )                  " redraw in terminal
 	endif

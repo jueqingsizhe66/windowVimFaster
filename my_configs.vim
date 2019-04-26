@@ -9,6 +9,7 @@ endif
 "Toggle Menu and Toolbar
 set guioptions-=m
 set guioptions-=T
+map y "+y
 map <silent> <F3> :if &guioptions =~# 'T' <Bar>
         \set guioptions-=T <Bar>
         \set guioptions-=m <bar>
