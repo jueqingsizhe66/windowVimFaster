@@ -26,6 +26,7 @@
 20. 修改了vimwiki配置到vim_runtime.
 21. 搞清楚[ vim-snipmate ][3]和[ vim-snippets ][2]的关系
 不断去学习[ vim-snippets ][2], [vim-snipmate设计理念][4]
+22. vim-mark 让你看代码更方便`,m`,`,n`,`,r`,  自写函数`,*`表示选择一行高亮
 
 ![Vim-features][1]
 

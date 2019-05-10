@@ -60,6 +60,7 @@ python-mode https://github.com/python-mode/python-mode
 """.strip()
 
 
+# vim-mark https://github.com/dimasg/vim-mark
 GITHUB_ZIP = '%s/archive/master.zip'
 
 SOURCE_DIR = path.join(path.dirname(__file__), 'my_plugins')

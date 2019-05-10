@@ -9,7 +9,6 @@ endif
 "Toggle Menu and Toolbar
 set guioptions-=m
 set guioptions-=T
-map y "+y
 map <silent> <F3> :if &guioptions =~# 'T' <Bar>
         \set guioptions-=T <Bar>
         \set guioptions-=m <bar>
@@ -294,25 +293,6 @@ map <D-0> :tablast<CR>
 ""    highlight ColorColumn ctermbg=9
 "endif
 
-" for macvim
-"if has("gui_running")
-    "set go=aAce  " remove toolbar
-    "set showtabline=2
-    "set columns=140
-    "set lines=40
-    "noremap <D-M-Left> :tabprevious<cr>
-    "noremap <D-M-Right> :tabnext<cr>
-    "map <D-1> 1gt
-    "map <D-2> 2gt
-    "map <D-3> 3gt 
-    "map <D-4> 4gt
-    "map <D-5> 5gt
-    "map <D-6> 6gt
-    "map <D-7> 7gt
-    "map <D-8> 8gt
-    "map <D-9> 9gt
-    "map <D-0> :tablast<CR>
-"endif
 
 
 "" tab encapsulation
