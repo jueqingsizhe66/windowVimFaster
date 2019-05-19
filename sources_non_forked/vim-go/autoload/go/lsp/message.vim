@@ -11,7 +11,11 @@ function! go#lsp#message#Initialize(wd) abort
             \ 'rootUri': go#path#ToURI(a:wd),
             \ 'capabilities': {
               \ 'workspace': {},
-              \ 'textDocument': {}
+              \ 'textDocument': {
+                \ 'hover': {
+                  \ 'contentFormat': ['plaintext'],
+                \ },
+              \ }
             \ }
           \ }
        \ }
@@ -29,7 +33,6 @@ function! go#lsp#message#Definition(file, line, col) abort
           \ }
        \ }
 endfunction
-
 
 function! go#lsp#message#TypeDefinition(file, line, col) abort
   return {

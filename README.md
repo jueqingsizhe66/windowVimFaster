@@ -1,6 +1,6 @@
 ![VIM](https://dnp4pehkvoo6n.cloudfront.net/43c5af597bd5c1a64eb1829f011c208f/as/Ultimate%20Vimrc.svg)
 
-## funny
+## funny 
 
 1. 下载，不破坏原始架构
 2. 写了my_configs.vim  并下载了自己插件到my_plugins文件夹
@@ -27,6 +27,8 @@
 21. 搞清楚[ vim-snipmate ][3]和[ vim-snippets ][2]的关系
 不断去学习[ vim-snippets ][2], [vim-snipmate设计理念][4]
 22. vim-mark 让你看代码更方便`,m`,`,n`,`,r`,  自写函数`,*`表示选择一行高亮
+23. [GlobalVim][5] 全局vim功能，事先设置好GK键即可，设置为CapsLock key ,win10-->设置-->讲述人--->更改光标粗细，这样看起来会更好些
+效率是一方面，有趣是最要的!(Solve your work, keep your life interesting)
 
 ![Vim-features][1]
 
@@ -127,7 +129,7 @@ I recommend reading the docs of these plugins to understand them better. Each pl
 * [open_file_under_cursor.vim](https://github.com/amix/open_file_under_cursor.vim): Open file under cursor when pressing `gf`
 * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your vim runtimepath 
 * [snipmate.vim](https://github.com/garbas/vim-snipmate): snipmate.vim aims to be a concise vim script that implements some of TextMate's snippets features in Vim,vim-snipmate default [snippets][2] (Previously snipmate-snippets) 
-    也就是说vim-snipmate回去读取vim-snippets项目的snippets.
+    也就是说vim-snipmate读取vim-snippets项目的snippets.
 * [ale](https://github.com/w0rp/ale): Syntax and lint checking for vim (async)
 * [vim-commentary](https://github.com/tpope/vim-commentary): Comment stuff out.  Use `gcc` to comment out a line (takes a count), `gc` to comment out the target of a motion. `gcu` uncomments a set of adjacent commented lines.(使用nerdcommenter替换他!!!!!)
 * [vim-expand-region](https://github.com/terryma/vim-expand-region): Allows you to visually select increasingly larger regions of text using the same key combination
@@ -364,3 +366,4 @@ Just do following:
 [2]:https://github.com/honza/vim-snippets 
 [3]:https://github.com/garbas/vim-snipmate 
 [4]:http://vim-wiki.mawercer.de/wiki/topic/text-snippets-skeletons-templates.html 
+[5]:https://ovo.ltd/projects/globalvim/ 

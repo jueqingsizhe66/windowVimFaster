@@ -86,8 +86,10 @@ function! go#tool#Info(showstatus) abort
     call go#complete#Info(a:showstatus)
   elseif l:mode == 'guru'
     call go#guru#DescribeInfo(a:showstatus)
+  elseif l:mode == 'gopls'
+    call go#lsp#Info(a:showstatus)
   else
-    call go#util#EchoError('go_info_mode value: '. l:mode .' is not valid. Valid values are: [gocode, guru]')
+    call go#util#EchoError('go_info_mode value: '. l:mode .' is not valid. Valid values are: [gocode, guru, gopls]')
   endif
 endfunction
 
@@ -118,12 +120,16 @@ function! go#tool#DescribeBalloon()
 endfunction
 
 function! s:balloon(msg)
+  let l:msg = a:msg
   if has('balloon_eval')
-    call balloon_show(a:msg)
-    return
+    if has('balloon_multiline')
+      let l:msg = join(a:msg, "\n")
+    else
+      let l:msg = substitute(join(map(deepcopy(a:msg), 'substitute(v:val, "\t", "", "")'), '; '), '{;', '{', '')
+    endif
   endif
 
-  call balloon_show(balloon_split(a:msg))
+  call balloon_show(l:msg)
 endfunction
 
 " restore Vi compatibility settings

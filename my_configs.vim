@@ -1,6 +1,6 @@
 nnoremap g<LocalLeader> :call setline(line('.'),substitute(getline('.'),'\\','\/','g'))<CR>
 nnoremap gd<LocalLeader> :call setline(line('.'),substitute(getline('.'),'\\','\\\\','g'))<CR>
-
+set rtp+=~/.vim/fzf.exe
 set history=1000 ""modify history
 if has('mouse')
     set mouse=a
@@ -511,3 +511,4 @@ set nocompatible
 filetype plugin on
 syntax on
 filetype indent on
+

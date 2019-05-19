@@ -60,6 +60,7 @@ python-mode https://github.com/python-mode/python-mode
 """.strip()
 
 
+#fzf.vim https://github.com/junegunn/fzf.vim
 # vim-mark https://github.com/dimasg/vim-mark
 GITHUB_ZIP = '%s/archive/master.zip'
 
