@@ -1,6 +1,0 @@
-BEGINFILE {
-	if ( ERRNO != "" ) {
-		printf "file not found: %s", FILENAME
-		nextfile
-	}
-}		# -----  end BEGINFILE  -----

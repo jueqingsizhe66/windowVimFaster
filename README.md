@@ -31,7 +31,6 @@
 效率是一方面，有趣是最要的!(Solve your work, keep your life interesting)
 
 ![Vim-features][1]
-
 # The Ultimate vimrc
 
 Over the last 10 years, I have used and tweaked Vim. This configuration is the ultimate vimrc (or at least my version of it).
