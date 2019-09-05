@@ -35,7 +35,7 @@ set tm=500
 set nobackup
 set nowb
 set noswapfile
-
+set number
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related

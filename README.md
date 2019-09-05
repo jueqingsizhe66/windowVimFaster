@@ -4,30 +4,32 @@
 
 1. 下载，不破坏原始架构
 2. 写了my_configs.vim  并下载了自己插件到my_plugins文件夹
-3. 写了update_my_plugins.vim 更新自己的插件 ,使用`python3 update_my_plugins.vim`
-4. rainbow_paratheses的好处是让括号好看些
-5. 更快的ctrlp配置`F2`,`F1`和`,o`的bufferexplorer命令一样
-6. 原有的配置居然支持保存更新，很厉害
-7. 增加了nerdcomment方便注释`(,cc)`, 替换掉vim-commentary
-8. Comfortable-motion也是挺有用的`<C-f><C-d><C-u><C-b>`
-9. 增加我的`,a 搜索光标下单词 和<space>/打开Ag`,`,cad`调用calendar,然后写wiki,`,wi`写日记也是可以的,`[[#]]`在#之后可以使用`Ctrl-X Ctrl-o`会弹出一个列表
+3. rainbow_paratheses的好处是让括号好看些
+4. 更快的ctrlp配置`F2`,`F1`和`,o`的bufferexplorer命令一样
+5. 原有的配置居然支持保存更新，很厉害
+6. 增加了nerdcomment方便注释`(,cc)`, 替换掉vim-commentary
+7. Comfortable-motion也是挺有用的`<C-f><C-d><C-u><C-b>`
+8. 增加我的`,a 搜索光标下单词 和<space>/打开Ag`,`,cad`调用calendar,然后写wiki,`,wi`写日记也是可以的,`[[#]]`在#之后可以使用`Ctrl-X Ctrl-o`会弹出一个列表
     不忍放弃vim的一个原因，很方便; 摁下`+`表示增加header，`-`表示较少header
-10. `C:\Users\yzl`的.NERDTreeBookmarks nerdtree的`:Bookmark`对应的文件夹名名字,`_vim_mru_files`保存着最近访问的文件,`_vimtags`保存着所有tag相关的记录.
-11. `C-s`变成加入光标, `Alt-S`变成添加符合全部单词下的光标,`ESC`推出MC(multiple cursors)模式
+    [[向前跳 ]]向后跳   [u upper parent node
+9. `C:\Users\yzl`的.NERDTreeBookmarks nerdtree的`:Bookmark`对应的文件夹名名字,`_vim_mru_files`保存着最近访问的文件,`_vimtags`保存着所有tag相关的记录.
+10. `C-s`变成加入光标, `Alt-S`变成添加符合全部单词下的光标,`ESC`推出MC(multiple cursors)模式
 [[#pringout]]
-12. `gf` open file under cursor,如果是路径的话(配合上vimwiki).
-13. easymotion的<leader>j和k可以正常于运行
-14. 添加了TODO,FIXME等关键字的高亮，`F7` 添加TODO(yzl),`,g`调用`:ACK` 然后写上TODO就可以过滤项目中所有具有TODO字段的行了(习惯性地添加TODO,FIXME,BUG等) [TODO高亮](https://www.jb51.net/article/115922.htm)
-15. `,fu`查看当前代码文件的所有函数  `,fU`跳转到指定函数中
-16.  `F8`添加so what 总结性声明.
-17. 编写perl文件常用命令，读取文件`\ii`,输出文件`\io`,while循环`\sw`,for循环`\sfe`, 另外你不能忘记的三个数据结构,标量`\id`,数组`\ia`,字典`\ih`
-18. Interesting,不妨试试! `,z`打开goyo界面，很好看
-19. 先设置一个mark`mA`,然后由于大写字母支持文件间跳转，于是`~A`也是可以跳转到先前的位置 很方便
-20. 修改了vimwiki配置到vim_runtime.
-21. 搞清楚[ vim-snipmate ][3]和[ vim-snippets ][2]的关系
+11. `gf` open file under cursor,如果是路径的话(配合上vimwiki).
+12. easymotion的<leader>j和k可以正常于运行
+13. 添加了TODO,FIXME等关键字的高亮，`F7` 添加TODO(yzl),`,g`调用`:ACK` 然后写上TODO就可以过滤项目中所有具有TODO字段的行了(习惯性地添加TODO,FIXME,BUG等) [TODO高亮](https://www.jb51.net/article/115922.htm)
+14. `,fu`查看当前代码文件的所有函数  `,fU`跳转到指定函数中
+15.  `F8`添加so what 总结性声明.
+16. 编写perl文件常用命令，读取文件`\ii`,输出文件`\io`,while循环`\sw`,for循环`\sfe`, 另外你不能忘记的三个数据结构,标量`\id`,数组`\ia`,字典`\ih`
+17. Interesting,不妨试试! `,z`打开goyo界面，很好看
+18. 先设置一个mark`mA`,然后由于大写字母支持文件间跳转，于是`~A`也是可以跳转到先前的位置 很方便
+19. 修改了vimwiki配置到vim_runtime.  Ctrl+enter 垂直打开链接， shift+enter 水平打开链接, enter直接在当前窗口打开
+    CTRL+Shift+@表示把list加上checkbox(gl-space或者glx表示取消掉checkbox，gln glp显示不同的任务状态)
+    速度得快点摁下 gLa gLA gLi gL+ gL*
+20. 搞清楚[ vim-snipmate ][3]和[ vim-snippets ][2]的关系
 不断去学习[ vim-snippets ][2], [vim-snipmate设计理念][4]
-22. vim-mark 让你看代码更方便`,m`,`,n`,`,r`,  自写函数`,*`表示选择一行高亮
-23. [GlobalVim][5] 全局vim功能，事先设置好GK键即可，设置为CapsLock key ,win10-->设置-->讲述人--->更改光标粗细，这样看起来会更好些
+21. vim-mark 让你看代码更方便`,m`,`,n`,`,r`,  自写函数`,*`表示选择一行高亮
+22. [GlobalVim][5] 全局vim功能，事先设置好GK键即可，设置为CapsLock key ,win10-->设置-->讲述人--->更改光标粗细，这样看起来会更好些
 效率是一方面，有趣是最要的!(Solve your work, keep your life interesting)
 
 ![Vim-features][1]
